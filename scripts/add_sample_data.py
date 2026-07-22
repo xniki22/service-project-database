@@ -14,19 +14,27 @@ def add_sample_data() -> None:
             cursor = connection.cursor()
 
             cursor.executemany(
-                """
-                INSERT INTO programs (program_name, program_year)
-                VALUES (?, ?)
-                """,
-                [
-                    ("SUSI Summer", 2025),
-                    ("Kanda University", 2025),
-                    ("Koishikawa High School", 2025),
-                    ("SUSI Winter", 2026),
-                    ("Ehime", 2026),
-                    ("YLAI", 2026),
-                ],
-            )
+
+    """
+    INSERT INTO programs (
+        program_code,
+        program_name,
+        program_year,
+        program_type,
+        notes
+    )
+    VALUES (?, ?, ?, ?, ?)
+    """,
+    [
+        ("SUSI-SUMMER-2025", "SUSI Summer", 2025, "Visiting Program", None),
+        ("KANDA-2025", "Kanda University", 2025, "Visiting Program", None),
+        ("KOISHIKAWA-2025", "Koishikawa High School", 2025, "Visiting Program", None),
+        ("SUSI-WINTER-2026", "SUSI Winter", 2026, "Visiting Program", None),
+        ("EHIME-2026", "Ehime", 2026, "Visiting Program", None),
+        ("YLAI-2026", "YLAI", 2026, "Visiting Program", None),
+    ],
+)
+            
 
             cursor.executemany(
                 """
