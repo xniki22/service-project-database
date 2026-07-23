@@ -12,3 +12,14 @@ Thumbs.db
 *.db
 *.sqlite
 *.sqlite3
+
+# Database
+data/*.db
+
+# Excel input
+data/*.xlsx
+
+# Exported CSVs
+exports/*.csv
+
+
