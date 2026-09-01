@@ -7,12 +7,14 @@ DATABASE_PATH = BASE_DIR / "data" / "service_projects.db"
 
 
 def add_sample_data() -> None:
+    """Add fictional demonstration data to the local database."""
+
     try:
         with sqlite3.connect(DATABASE_PATH) as connection:
             connection.execute("PRAGMA foreign_keys = ON;")
             cursor = connection.cursor()
 
-            # Add sample programs
+            # Add fictional sample programs.
             cursor.executemany(
                 """
                 INSERT INTO programs (
@@ -24,39 +26,39 @@ def add_sample_data() -> None:
                 """,
                 [
                     (
-                        "SUSI Summer",
+                        "International Leadership Program",
                         2025,
                         "Sample program for testing",
                     ),
                     (
-                        "Kanda University",
+                        "University Exchange Program",
                         2025,
                         "Sample program for testing",
                     ),
                     (
-                        "Koishikawa High School",
+                        "Youth Cultural Exchange",
                         2025,
                         "Sample program for testing",
                     ),
                     (
-                        "SUSI Winter",
+                        "Community Leadership Program",
                         2026,
                         "Sample program for testing",
                     ),
                     (
-                        "Ehime",
+                        "Global Learning Program",
                         2026,
                         "Sample program for testing",
                     ),
                     (
-                        "YLAI",
+                        "International Fellows Program",
                         2026,
                         "Sample program for testing",
                     ),
                 ],
             )
 
-            # Add sample organizations
+            # Add fictional sample organizations.
             cursor.executemany(
                 """
                 INSERT INTO organizations (
@@ -66,8 +68,14 @@ def add_sample_data() -> None:
                 VALUES (?, ?)
                 """,
                 [
-                    ("Northwest Harvest", "Seattle, WA"),
-                    ("Food Lifeline", "Seattle, WA"),
+                    (
+                        "Sample Food Bank",
+                        "Seattle, WA",
+                    ),
+                    (
+                        "Community Volunteer Center",
+                        "Seattle, WA",
+                    ),
                     (
                         "Sample Community Organization",
                         "Seattle, WA",
@@ -75,7 +83,7 @@ def add_sample_data() -> None:
                 ],
             )
 
-            # Find the IDs needed for the service project
+            # Find IDs needed for the demonstration service project.
             cursor.execute(
                 """
                 SELECT program_id
@@ -83,7 +91,10 @@ def add_sample_data() -> None:
                 WHERE program_name = ?
                   AND program_year = ?
                 """,
-                ("SUSI Summer", 2025),
+                (
+                    "International Leadership Program",
+                    2025,
+                ),
             )
 
             program_row = cursor.fetchone()
@@ -94,7 +105,7 @@ def add_sample_data() -> None:
                 FROM organizations
                 WHERE organization_name = ?
                 """,
-                ("Food Lifeline",),
+                ("Community Volunteer Center",),
             )
 
             organization_row = cursor.fetchone()
@@ -107,38 +118,38 @@ def add_sample_data() -> None:
             program_id = program_row[0]
             organization_id = organization_row[0]
 
-            # Add one sample service project
+            # Add one fictional demonstration service project.
             cursor.execute(
-                 """
-                 INSERT INTO service_projects (
-                 project_code,
-                 project_name,
-                 program_id,
-                 organization_id,
-                 project_date,
-                 participant_count,
-                 hours_per_participant,
-                 notes,
-                 sync_status
-                 )
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                 """,
-                 (
-                     "SP-SUSI-SUMMER-2025-001",
-                     "Food Packaging Project",
-                     program_id,
-                     organization_id,
-                     "2025-07-15",
-                     20,
-                     3.0,
-                     "Sample project for Salesforce import testing",
-                     "Not Synced",
-                     ),
+                """
+                INSERT INTO service_projects (
+                    project_code,
+                    project_name,
+                    program_id,
+                    organization_id,
+                    project_date,
+                    participant_count,
+                    hours_per_participant,
+                    notes,
+                    sync_status
                 )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    "SP-DEMO-2025-001",
+                    "Community Service Project",
+                    program_id,
+                    organization_id,
+                    "2025-07-15",
+                    20,
+                    3.0,
+                    "Sample project for Salesforce import testing",
+                    "Not Synced",
+                ),
+            )
 
             project_id = cursor.lastrowid
 
-            # Add a sample supporting document
+            # Add a placeholder supporting-document link.
             cursor.execute(
                 """
                 INSERT INTO supporting_documents (
