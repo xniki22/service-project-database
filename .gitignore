@@ -1,25 +1,39 @@
+# Python
 __pycache__/
 *.pyc
 .venv/
 venv/
+
+# Environment variables and secrets
 .env
+.env.*
+!.env.example
+
+# VS Code
 .vscode/
-*.db-journal
-*.db-shm
-*.db-wal
-.DS_Store
-Thumbs.db
+
+# SQLite databases
 *.db
 *.sqlite
 *.sqlite3
+*.db-journal
+*.db-shm
+*.db-wal
 
-# Database
+# Operational database files
 data/*.db
+data/*.sqlite
+data/*.sqlite3
 
-# Excel input
+# Excel and CSV input data
 data/*.xlsx
+data/*.xls
+data/*.csv
 
-# Exported CSVs
-exports/*.csv
+# Generated Salesforce exports
+exports/*
+!exports/.gitkeep
 
-
+# Operating system files
+.DS_Store
+Thumbs.db
